@@ -1,3 +1,9 @@
+si aparece restrccion de windows usar en terminal 
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+
+
+
 
 ## 🛠️ Instalación
 
