@@ -1,69 +1,70 @@
-<!DOCTYPE html>
-<html lang="es" class="dark"> <head>
-    <meta charset="UTF-8">
-    <title>Pizza Planeta | Menú</title>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="tailwind.css">
-    <link rel="stylesheet" href="theme.css">
-    <link rel="stylesheet" href="index.css">
-    
-    <style>
-    body {
-        background-color: #050b18 !important; 
-        color: white !important;
-        margin: 0;
-        min-height: 100vh;
-    }
-    </style>
-    <body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col overflow-x-hidden text-white" 
+      style="background: linear-gradient(to bottom, #1e3a8a 0%, #050b18 25%, #050b18 75%, #3b0764 100%);">
 
-    <main class="flex-grow p-8">
+    <section class="relative h-screen w-full flex flex-col items-center justify-center text-center p-6">
+        <div class="relative z-10 flex flex-col items-center">
+            <div class="mb-6 animate-bounce">
+                <span class="text-7xl">🚀</span>
+            </div>
+            <h1 class="text-7xl md:text-9xl font-black italic tracking-tighter text-white leading-none drop-shadow-2xl">
+                PIZZA <span class="text-yellow-400">PLANETA</span>
+            </h1>
+            <p class="text-gray-300 mt-4 text-lg md:text-xl uppercase tracking-[0.3em] font-light">
+                Las pizzas más estelares del universo
+            </p>
+            <button onclick="irAlMenu()" class="mt-12 bg-yellow-400 text-black px-10 py-5 rounded-full font-black text-xl hover:bg-yellow-300 hover:scale-105 transition-all shadow-[0_0_30px_rgba(250,204,21,0.3)] flex items-center gap-3 group">
+                EXPLORAR MENÚ
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <main id="menu-section" class="flex-grow p-8 pt-20">
         <div class="max-w-6xl mx-auto">
             <header class="text-center mb-16">
-                <h1 class="text-6xl font-black text-white tracking-tighter italic">
-                    PIZZA <span class="text-yellow-400">PLANETA</span>
-                </h1>
-                <p class="text-gray-400 mt-2 uppercase tracking-widest text-sm">Sabor fuera de este mundo</p>
+                <h2 class="text-5xl font-black text-white tracking-tighter italic drop-shadow-lg">NUESTRO <span class="text-yellow-400">MENÚ</span></h2>
             </header>
-            
             <div id="pizza-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 </div>
         </div>
     </main>
 
-    <footer class="mt-20 py-16 bg-[#0a1120]/80 backdrop-blur-md border-t border-gray-800">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl font-black text-center text-white mb-2 tracking-tighter italic">
-                Conéctate con nosotros
-            </h2>
-            <p class="text-center text-gray-400 mb-12">Síguenos en nuestras redes y contáctanos</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                
-                <div class="bg-gray-900/60 p-10 rounded-[2.5rem] border border-gray-800 flex flex-col items-center shadow-2xl transition-all hover:border-pink-500/30">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-14 h-14 mb-4">
-                    <h3 class="text-xl font-bold text-white mb-1">Síguenos en Instagram</h3>
-                    <p class="text-gray-500 mb-8">@pizzaplaneta</p>
-                    
-                    <div id="qr-instagram" class="w-48 h-48 bg-white rounded-3xl p-4 shadow-inner flex items-center justify-center">
-                        <span class="text-gray-300 text-xs text-center">Iniciando escáner...</span>
-                    </div>
-                </div>
-
-                <div class="bg-gray-900/60 p-10 rounded-[2.5rem] border border-gray-800 flex flex-col items-center shadow-2xl transition-all hover:border-green-500/30">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-14 h-14 mb-4">
-                    <h3 class="text-xl font-bold text-white mb-1">Contáctanos</h3>
-                    <p class="text-gray-500 mb-8">+1 (555) 123-4567</p>
-                    
-                    <div id="qr-whatsapp" class="w-48 h-48 bg-white rounded-3xl p-4 shadow-inner flex items-center justify-center">
-                        <span class="text-gray-300 text-xs text-center">Iniciando escáner...</span>
-                    </div>
-                </div>
-
+    <footer class="mt-20 py-16 bg-black/30 backdrop-blur-xl border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-5xl font-black text-white tracking-tighter italic mb-3 drop-shadow-lg">Conéctate con <span class="text-yellow-400">nosotros</span></h2>
+                <p class="text-gray-300 text-lg uppercase tracking-widest">Síguenos en nuestras redes y contáctanos</p>
             </div>
-
-            <div class="mt-16 text-center text-gray-600 text-xs uppercase tracking-widest">
-                <p>&copy; 2026 Pizza Planeta S.A. - Todos los derechos reservados</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="bg-black/40 p-12 rounded-[3rem] border border-white/10 flex flex-col items-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-md transition-transform hover:-translate-y-2 hover:border-pink-500/50">
+                    <div class="bg-white/10 p-4 rounded-2xl mb-6"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-12 h-12"></div>
+                    <h3 class="text-2xl font-black text-white mb-1 uppercase italic">Síguenos en Instagram</h3>
+                    <p class="text-yellow-400 font-bold text-lg mb-8 drop-shadow-md">@pizzaplaneta</p>
+                    <div class="relative group">
+                        <div id="qr-instagram" class="w-52 h-52 bg-white rounded-[2rem] p-5 shadow-inner flex items-center justify-center overflow-hidden">
+                            <span class="text-gray-300 text-[10px] text-center uppercase tracking-tighter">Generando código galáctico...</span>
+                        </div>
+                        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[10px] font-black px-4 py-1 rounded-full whitespace-nowrap shadow-lg">ESCANEAME</div>
+                    </div>
+                </div>
+                <div class="bg-black/40 p-12 rounded-[3rem] border border-white/10 flex flex-col items-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-md transition-transform hover:-translate-y-2 hover:border-green-500/50">
+                    <div class="bg-white/10 p-4 rounded-2xl mb-6"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-12 h-12"></div>
+                    <h3 class="text-2xl font-black text-white mb-1 uppercase italic">Contáctanos</h3>
+                    <p class="text-green-400 font-bold text-lg mb-8 drop-shadow-md">+1 (555) 123-4567</p>
+                    <div class="relative group">
+                        <div id="qr-whatsapp" class="w-52 h-52 bg-white rounded-[2rem] p-5 shadow-inner flex items-center justify-center overflow-hidden">
+                            <span class="text-gray-300 text-[10px] text-center uppercase tracking-tighter">Generando código galáctico...</span>
+                        </div>
+                        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-black px-4 py-1 rounded-full whitespace-nowrap shadow-lg">CHATEA CON NOSOTROS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-400 text-[10px] uppercase tracking-widest gap-4">
+                <p>🚀 Abierto de Lunes a Domingo: 11:00 AM - 11:00 PM</p>
+                <p>&copy; 2026 Pizza Planeta - San Juan de Colón</p>
+                <p>Hecho para el universo 🪐</p>
             </div>
         </div>
     </footer>
@@ -77,16 +78,13 @@
         </button>
     </div>
 
-    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-80 bg-[#0a1120] shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform translate-x-full transition-transform duration-500 z-[60] p-8 border-l border-gray-800">
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-80 bg-black/80 backdrop-blur-2xl shadow-[-10px_0_30px_rgba(0,0,0,0.5)] transform translate-x-full transition-transform duration-500 z-[60] p-8 border-l border-white/10">
         <div class="flex justify-between items-center mb-10">
             <h2 class="text-2xl font-black italic">TU PEDIDO</h2>
             <button onclick="toggleCart()" class="text-gray-500 hover:text-white text-xl">✕</button>
         </div>
-        
-        <div id="cart-items" class="space-y-4 overflow-y-auto h-[60vh] pr-2">
-            </div>
-
-        <div class="absolute bottom-0 left-0 w-full p-8 bg-[#0a1120] border-t border-gray-800">
+        <div id="cart-items" class="space-y-4 overflow-y-auto h-[60vh] pr-2"></div>
+        <div class="absolute bottom-0 left-0 w-full p-8 bg-transparent border-t border-white/10">
             <div class="flex justify-between mb-6">
                 <span class="text-gray-400 font-bold">TOTAL:</span>
                 <span id="cart-total" class="text-2xl font-black text-green-400">$0.00</span>
@@ -99,4 +97,3 @@
 
     <script src="app.js"></script>
 </body>
-</html>
