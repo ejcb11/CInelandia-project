@@ -1,0 +1,10 @@
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+sqlalchemy==2.0.36
+pydantic==2.9.2
+pydantic-settings==2.6.1
+qrcode[pil]==8.0
+pillow==11.0.0
+python-multipart==0.0.18
+aiosqlite==0.20.0
+requests
