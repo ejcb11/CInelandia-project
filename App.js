@@ -1,12 +1,12 @@
 let carrito = [];
 const API_URL = "http://localhost:8000/api";
 
-// 1. Efecto Scroll del Hero al Menú
+// Efecto Scroll del Hero al Menú
 function irAlMenu() {
     document.getElementById('menu-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-// 2. Cargar las pizzas desde Python
+// Cargar las pizzas desde Python
 async function cargarMenu() {
     const contenedor = document.getElementById('pizza-container');
     try {
@@ -44,7 +44,7 @@ async function cargarMenu() {
     }
 }
 
-// 3. Funciones del Carrito de Compras
+// Funciones del Carrito de Compras
 function toggleCart() {
     document.getElementById('cart-sidebar').classList.toggle('translate-x-full');
 }
@@ -92,7 +92,7 @@ function eliminarDelCarrito(index) {
     actualizarCarritoVisual();
 }
 
-// 4. Cargar los QR
+// Carga de los codigos QR de contacto
 async function cargarQRCodes() {
     const api_endpoints = [
         { id: 'qr-instagram', data: "https://instagram.com/pizzaplaneta", color: "#E1306C" },
@@ -116,8 +116,181 @@ async function cargarQRCodes() {
     }
 }
 
-// 5. Encender todo al cargar la página
+// Encender todo al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     cargarMenu();
     cargarQRCodes();
 });
+
+// --- RADAR DE PEDIDOS ---
+function rastrearPedido() {
+    const input = document.getElementById('codigo-rastreo');
+    const codigo = input.value.trim().toUpperCase();
+    const panel = document.getElementById('panel-telemetria');
+    
+    if (codigo === "") {
+        alert("¡Capitán! Necesita ingresar un código de misión válido.");
+        return;
+    }
+
+    // Mostrar el panel con una pequeña animación
+    panel.classList.remove('hidden');
+    panel.classList.add('animate-in', 'fade-in', 'slide-in-from-bottom-4', 'duration-500');
+
+    // Resetear todos los pasos primero
+    for (let i = 1; i <= 4; i++) {
+        const paso = document.getElementById(`paso-${i}`);
+        const icono = paso.querySelector('div');
+        paso.classList.add('opacity-50');
+        icono.className = "w-12 h-12 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-xl mb-4 transition-all duration-500 z-10";
+    }
+    document.getElementById('linea-progreso').style.width = '0%';
+
+    // Simular conexión con el backend (MOCK DATA)
+    let nivelProgreso = 1;
+
+    if (codigo === "ASTRO-001") {
+        nivelProgreso = 2; // Preparando
+    } else if (codigo === "ASTRO-002") {
+        nivelProgreso = 3; // En camino
+    } else if (codigo === "ASTRO-003") {
+        nivelProgreso = 4; // Entregado
+    } else {
+        // Para cualquier otro código válido, simulacion que acaba de entrar
+        nivelProgreso = 1; 
+    }
+
+    // Animar la barra de progreso
+    setTimeout(() => {
+        const anchos = ['0%', '33%', '66%', '100%'];
+        document.getElementById('linea-progreso').style.width = anchos[nivelProgreso - 1];
+
+        // Encender los pasos completados
+        for (let i = 1; i <= nivelProgreso; i++) {
+            setTimeout(() => {
+                const paso = document.getElementById(`paso-${i}`);
+                const icono = paso.querySelector('div');
+                
+                paso.classList.remove('opacity-50');
+                // Estilo brillante para paso completado
+                icono.className = "w-12 h-12 rounded-full bg-green-500/20 border-2 border-green-400 shadow-[0_0_15px_rgba(74,222,128,0.5)] flex items-center justify-center text-xl mb-4 transition-all duration-500 z-10 scale-110";
+            }, i * 300); 
+        }
+    }, 100);
+}
+
+// LÓGICA DEL MODAL DE CONFIRMACIÓN
+let codigoPedidoActual = "";
+
+function procesarPedido() {
+    // Validacion del carrito sin elementos
+    if (carrito.length === 0) {
+        alert("¡Capitán! Su carrito espacial está vacío. Añada provisiones antes de despegar.");
+        return;
+    }
+
+    // Generacion de código aleatorio
+    const numeroAleatorio = Math.floor(Math.random() * 900) + 100;
+    codigoPedidoActual = `ASTRO-${numeroAleatorio}`;
+
+    // Insertar código y abrir modal
+    const modal = document.getElementById('modal-confirmacion');
+    const codigoElemento = document.getElementById('codigo-pedido-modal');
+    
+    if (modal && codigoElemento) {
+        codigoElemento.innerText = codigoPedidoActual;
+        modal.classList.remove('hidden');
+    }
+
+    // Limpiar carrito
+    carrito = [];
+    actualizarCarritoVisual();
+    
+    // Cerrar panel lateral del carrito
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar && !sidebar.classList.contains('translate-x-full')) {
+        toggleCart();
+    }
+}
+
+function cerrarModal() {
+    const modal = document.getElementById('modal-confirmacion');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function irAlRadarDesdeModal() {
+    // Ocultar modal
+    cerrarModal();
+    
+    // Pegar código en el input del radar automáticamente
+    const inputRadar = document.getElementById('codigo-rastreo');
+    if (inputRadar) {
+        inputRadar.value = codigoPedidoActual;
+    }
+    
+    // Hacer scroll hacia el radar
+    const radarSection = document.getElementById('panel-telemetria').parentElement;
+    if (radarSection) {
+        radarSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+// LÓGICA DEL BOTÓN "IR ARRIBA"
+
+function subirAlInicio() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' 
+    });
+}
+
+// Mostrar el botón solo cuando bajamos por la página
+window.addEventListener('scroll', () => {
+    const btnSubir = document.getElementById('btn-subir');
+    
+    if (window.scrollY > 400) {
+        // Aparece
+        btnSubir.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        btnSubir.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    } else {
+        // Se esconde
+        btnSubir.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        btnSubir.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+    }
+});
+
+// ANIMACION DE DESPEGUE
+
+function iniciarDespegue() {
+    const contenedor = document.getElementById('contenedor-cohete');
+    const fuego = document.getElementById('fuego-motor');
+    const menuSection = document.getElementById('menu-section');
+    
+    if (contenedor && menuSection) {
+        // 1. Inicio de vibración (rumble) y animacion de motor
+        contenedor.classList.add('animacion-rumble');
+        fuego.classList.add('fuego-activo');
+        
+        // 2. retraso antes de animacion
+        setTimeout(() => {
+            
+            contenedor.classList.remove('animacion-rumble');
+            contenedor.classList.add('animacion-despegue');
+            
+            setTimeout(() => {
+                menuSection.scrollIntoView({ behavior: 'smooth' });
+                
+               // retorno del cohete a zona inicial
+                setTimeout(() => {
+                    contenedor.classList.remove('animacion-despegue');
+                    fuego.classList.remove('fuego-activo');
+                    // corte de animacion del fuego
+                }, 2000);
+                
+            }, 400); 
+            
+        }, 500); 
+    }
+}
